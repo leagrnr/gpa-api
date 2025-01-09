@@ -1,11 +1,15 @@
-const sequelize = require('./database');
+require("dotenv").config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const utilisateurRoute = require("./routes/utilisateurRoute");
 
-(async () => {
-    try {
-        await sequelize.authenticate();
-    } catch (error) {
-        console.error('Error :', error);
-    } finally {
-        await sequelize.close();
-    }
-})();
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(bodyParser.json());
+
+app.use("/api/users", utilisateurRoute);
+
+app.listen(PORT, () => {
+  console.log(`Serveur démarré sur http://localhost:${PORT}`);
+});
