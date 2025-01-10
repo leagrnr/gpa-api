@@ -1,5 +1,5 @@
 # Utiliser une image Node.js officielle
-FROM node:18
+FROM node:22.2
 
 # Définir le répertoire de travail
 WORKDIR /root/gpa-api
