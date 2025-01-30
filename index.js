@@ -5,6 +5,8 @@ const http = require("http");
 const { Server } = require("socket.io");
 const path = require("path");
 const determineCoupureGeneric = require("./dab");
+const produitRoute = require("./routes/produitRoute");
+const utilisateurRoute = require("./routes/utilisateurRoute");
 
 const app = express();
 const server = http.createServer(app);
@@ -19,6 +21,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+app.use("/api", produitRoute);
+app.use("/api", utilisateurRoute);
 
 io.on("connection", (socket) => {
   console.log("Un utilisateur s'est connecté :", socket.id);
