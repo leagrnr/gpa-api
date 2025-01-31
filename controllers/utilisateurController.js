@@ -1,6 +1,11 @@
 const jwt = require("jsonwebtoken");
 const Utilisateur = require("../models/utilisateurModel");
-const Client = require("../models/clientModel");
+// const Client = require("../models/clientModel");
+// const Fournisseur = require("../models/fournisseurModel");
+// const Commercial = require("../models/commercialModel");
+// const Admin = require("../models/administrateurModel");
+// const Livreur = require("../models/livreurModel");
+// const Commande = require("../models/commandeModel");
 
 const { SECRET_KEY } = process.env;
 
@@ -101,27 +106,34 @@ const utilisateurController = {
   },
 
   deleteUser: async (req, res) => {
-    const { id } = req.params;
+    const userId = parseInt(req.params.id, 10);
+
+    if (isNaN(userId)) {
+      return res.status(400).json({ message: "Invalid user ID" });
+    }
+
     try {
-      const utilisateur = await Utilisateur.findByPk(id);
-      if (!utilisateur) {
-        return res.status(404).json({ message: "Utilisateur non trouvé." });
+      // await Commande.destroy({ where: { idUtilisateur: userId } });
+      // await Client.destroy({ where: { idUtilisateur: userId } });
+      const deletedRows = await Utilisateur.destroy({
+        where: { idUtilisateur: userId },
+      });
+
+      if (deletedRows === 0) {
+        return res.status(404).json({ message: "User not found" });
       }
 
-      // Delete or update related records in the Client table
-      // eslint-disable-next-line no-undef
-      await Client.destroy({ where: { idUtilisateur: id } });
-
-      await utilisateur.destroy();
-      res.json({ message: "Utilisateur supprimé avec succès." });
+      return res.status(200).json({ message: "User deleted successfully" });
     } catch (error) {
-      console.error("Error deleting user:", error);
-      res.status(500).json({
+      console.error("Delete error:", error);
+      return res.status(500).json({
         message: "Erreur lors de la suppression de l'utilisateur.",
-        error: error.message || "Unknown error",
+        error: error.message,
       });
     }
   },
+
+
 };
 
 module.exports = utilisateurController;

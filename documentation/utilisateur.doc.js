@@ -52,7 +52,7 @@ module.exports = {
   },
 
   paths: {
-    "/utilisateurs": {
+    "api/users": {
       get: {
         summary: "Récupérer tous les utilisateurs",
         tags: ["Utilisateur"],
@@ -93,7 +93,7 @@ module.exports = {
       },
     },
 
-    "/utilisateurs/{idUtilisateur}": {
+    "api/users/:id": {
       get: {
         summary: "Récupérer un utilisateur par ID",
         tags: ["Utilisateur"],

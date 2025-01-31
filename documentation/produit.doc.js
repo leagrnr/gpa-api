@@ -36,7 +36,7 @@ module.exports = {
   },
 
   paths: {
-    "/produits": {
+    "api/products": {
       get: {
         summary: "Récupérer tous les produits",
         tags: ["Produit"],
@@ -77,7 +77,7 @@ module.exports = {
       },
     },
 
-    "/produits/{idProduit}": {
+    "api/products/:id": {
       get: {
         summary: "Récupérer un produit par ID",
         tags: ["Produit"],
