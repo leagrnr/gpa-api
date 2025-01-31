@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const http = require("http");
 const { Server } = require("socket.io");
 const path = require("path");
+const swaggerSetup = require("./config/swagger");
 const determineCoupureGeneric = require("./dab");
 const produitRoute = require("./routes/produitRoute");
 const utilisateurRoute = require("./routes/utilisateurRoute");
@@ -24,6 +25,8 @@ app.get("/", (req, res) => {
 
 app.use("/api", produitRoute);
 app.use("/api", utilisateurRoute);
+
+swaggerSetup(app);
 
 io.on("connection", (socket) => {
   console.log("Un utilisateur s'est connecté :", socket.id);
