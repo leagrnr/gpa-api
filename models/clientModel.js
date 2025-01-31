@@ -5,17 +5,9 @@ const Utilisateur = require("./utilisateurModel");
 const Client = sequelize.define(
   "Client",
   {
-    idUtilisateur: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      references: {
-        model: Utilisateur,
-        key: "idUtilisateur",
-      },
-    },
     reduction: {
       type: DataTypes.DECIMAL(15, 2),
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
@@ -24,5 +16,7 @@ const Client = sequelize.define(
     timestamps: false,
   },
 );
+
+Client.belongsTo(Utilisateur, { foreignKey: "idUtilisateur" });
 
 module.exports = Client;
